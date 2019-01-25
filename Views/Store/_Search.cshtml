@@ -1,0 +1,16 @@
+﻿@model HackathonRetroStore.Models.SearchViewModel
+
+<form action="/hack2016/Store/Index" method="GET" class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-10">
+                    <input type="text" name="q" class="form-control" placeholder="Search" value="@Model.query" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="font-size:1.3em;"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+</form>
+
+
+
+
+
+

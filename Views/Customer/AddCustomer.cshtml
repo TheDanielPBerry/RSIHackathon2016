@@ -1,0 +1,62 @@
+﻿
+<form id="newCustomerForm">
+    <span>First Name:</span> <br />
+    <input type="text" id="firstName" />
+    <br />
+    <span>Last Name:</span> <br />
+    <input type="text" id="lastName" />
+    <br />
+    <span>Street:</span> <br />
+    <input type="text" id="street" />
+    <br />
+    <span>City:</span> <br />
+    <input type="text" id="city" />
+    <br />
+    <span>State:</span> <br />
+    <input type="text" id="state" />
+    <br />
+    <span>ZIP:</span> <br />
+    <input type="text" id="zip" />
+    <br />
+    <input id="btnSubmit" type="button"  value="Create Customer Account">
+</form>
+
+<style>
+    #newCustomerForm{
+        padding-top: 20px;
+    }
+
+    #btnSubmit{
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    // Call CreateCustomer method in Customer controller passing Customer's properties from form fields. On success, redirect to returned result
+    $('#btnSubmit').on('click', this, function () {
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var street = $('#street').val();
+        var city = $('#city').val();
+        var state = $('#state').val();
+        var zip = $('#zip').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreateCustomer", "Customer")',
+            data: {
+                firstName: firstName,
+                lastName: lastName,
+                street: street,
+                city: city,
+                state: state,
+                zip: zip
+            },
+            success: function (redirect) {
+                if (redirect != '') {
+                    window.location.href = redirect;
+                }
+            }
+        });
+    });
+</script>

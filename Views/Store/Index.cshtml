@@ -1,0 +1,21 @@
+﻿@model List<HackathonRetroStore.Models.Product>
+
+<div>
+    <h1 style="text-align:center;" class="text-primary"><b>Retro Store</b></h1>
+    <h2 style="text-align:center">Shop Retro Technology</h2>
+</div>
+
+<div id="tableDiv">
+    @Html.Partial("~/Views/Store/ProductTable.cshtml", Model)
+</div>
+
+
+<link href="~/Content/ShopHome.css" rel="stylesheet" type="text/css" />
+
+@section scripts {
+    @Scripts.Render("~/Scripts/RetroStoreShop.js")
+}
+
+<style>
+
+</style>

@@ -1,0 +1,57 @@
+﻿@model HackathonRetroStore.Models.Product
+
+@{ 
+    var isAuthenticated = !String.IsNullOrWhiteSpace(User.Identity.Name);
+}
+<div>
+    <h1>Retro Store</h1>
+    <h2>Shop Retro Technology</h2>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <td style="border:0px;" colspan="2"><img class="productImage" src="@Url.Content(String.Format("~/ProductImages/{0}", Model.PictureFileName))" /></td>
+    </tr>
+    <tr>
+        <td style="border:0px;">Product</td>
+        <td style="border:0px;">@Model.Name</td>
+    </tr>
+    <tr>
+        <td style="border:0px;">Description</td>
+        <td style="border:0px;">@Model.Description</td>
+    </tr>
+    <tr>
+        <td style="border:0px;">Quantity</td>
+        <td style="border:0px;">@Model.QuantityInStock</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="border:0px;">
+            @if (isAuthenticated)
+            {
+                <form action="/hack2016/Store/AddToCart" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.Id" name="productId" />
+                        <div class="col-md-6">
+                            <input type="number" value="0" name="quantity" max="@Model.QuantityInStock" min="0" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" id="btnAddToCart" value="Add to Cart" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
+            }
+
+            else
+            {
+                <input disabled="disabled" type="button" id="btnAddToCart" value="Add to Cart" onclick="location.href='@Url.Action("AddToCart", "Store", new { @productId = Model.Id })'" />
+            }
+            
+        </td>
+    </tr>
+</table>
+
+<link href="~/Content/ShopHome.css" rel="stylesheet" type="text/css" />
+
+@section scripts {
+    @Scripts.Render("~/Scripts/RetroStoreShop.js")
+}

@@ -1,0 +1,49 @@
+﻿
+
+@model List<HackathonRetroStore.Models.Product>
+
+@Html.Partial("_Search", new HackathonRetroStore.Models.SearchViewModel() { query = (String)ViewBag.query })
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="panel-group" id="collapse">
+                @foreach (HackathonRetroStore.Models.Product product in Model)
+                {
+                    <div class="panel panel-default">
+                        @{ String collapseId = "#collapse" + Url.Content(String.Format("{0}", product.Id));}
+                        @{ String collapseAbleId = "#collapsable" + Url.Content(String.Format("{0}", product.Id));}
+                        @{ String collapseAble = "collapsable" + Url.Content(String.Format("{0}", product.Id));}
+                        @{ String imgSrc = "" + Url.Content(String.Format("~/ProductImages/{0}", product.PictureFileName));}
+                        <div class="panel-heading"><a class="panel-title text-primary" data-toggle="collapse" data-parent="@collapseId" href="@collapseAbleId">@product.Name</a><p style="float: right; display:inline-block;">Available: @product.QuantityInStock</p></div>
+                        <div class="panel-collapse collapse" id="@collapseAble">
+                            <div class="panel-body">
+                                <div class="col-md-6">
+                                    <!-- 16:9 aspect ratio -->
+                                    @if (product.Id == 1)
+                                    {
+                                        <div class="embed-responsive embed-responsive-16by9"><img class="embed-responsive-item" src="@imgSrc" width="85%" , height="85%" /></div>
+                                    }
+                                    @if (product.Id != 1)
+                                    {
+                                        <div class="embed-responsive embed-responsive-16by9"><img class="embed-responsive-item" src="@imgSrc" /></div>
+                                    }
+                                </div>
+                                <div class="col-md-6">
+                                    <h2 class="text-primary">@product.Name</h2>
+                                    <h3>$@product.Price.ToString().Substring(0, product.Price.ToString().IndexOf('.') + 3)</h3>
+                                    <h3><em>@product.Description</em></h3>
+                                    <input type="button" class="btn btn-primary btnViewDetail" value="View Detail"
+                                           onclick="location.href='@Url.Action("Product", "Store", new { @productId = product.Id })'" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_Pagination", Model)

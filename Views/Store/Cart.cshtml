@@ -1,0 +1,65 @@
+﻿@model HackathonRetroStore.Models.CustomerCartViewModel
+
+<div>
+    <h1>Retro Store</h1>
+    <h2>Shop Retro Technology</h2>
+</div>
+
+@if(Model.Customer == null)
+{
+    <h3>A valid user must be registered and logged in to view cart</h3>
+}
+else
+{
+    <div id="subHeader">
+        @{
+            string displayName;
+            decimal total;
+
+            if (Model.Customer.FirstName != String.Empty && Model.Customer.LastName != String.Empty)
+            {
+                displayName = Model.Customer.FirstName + " " + Model.Customer.LastName;
+            }
+            else
+            {
+                displayName = Model.Customer.Id;
+            }
+
+            total = Model.Products.Select(x => x.Price* Model.Quantities.ElementAt(Model.Products.FindIndex(m => m.Id==x.Id))).ToList().Sum();
+        }
+
+        <h3>@displayName's Cart</h3>
+		
+		
+		@if(total.ToString().IndexOf(".")<0) {
+			<h3>Total: $@total</h3>
+		}else {
+			<h3>Total: $@total.ToString().Substring(0,total.ToString().IndexOf(".") + 3) </h3>
+		}
+
+    </div>
+
+    
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-md-4">
+                <div style="background-color:#337cbb; border-radius:10px; padding:5px; color:white;">
+                    @Html.Hidden("ProductId", product.Id, new { @class = "productId" })
+                    <p style="text-align:center; margin-top:10px;"><img class="productImage" src="@Url.Content(String.Format("~/ProductImages/{0}", product.PictureFileName))" /></p>
+                    <p><h4><b>@product.Name</b> x @Model.Quantities.ElementAt(Model.Products.IndexOf(product))</h4></p>
+                    <p>@product.Description</p>
+                    <p style="font-size:20px;"><i> $@product.Price.ToString().Substring(0, product.Price.ToString().IndexOf(".")+3) </i></p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+<link href="~/Content/ShopHome.css" rel="stylesheet" type="text/css" />
+
+@section scripts {
+    @Scripts.Render("~/Scripts/RetroStoreShop.js")
+}
+

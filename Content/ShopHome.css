@@ -1,0 +1,17 @@
+﻿.productImage{
+    height: 100px;
+    width: 200px;
+}
+
+#productTable{
+    
+    border-collapse: collapse;
+}
+
+#productTable, th, td{
+    border: 1px solid black;
+}
+
+#btnAddProduct{
+    margin-top: 10px;
+}

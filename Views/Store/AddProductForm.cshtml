@@ -1,0 +1,30 @@
+﻿
+<form id="newProductForm">
+    <span>Product Name:</span> <br />
+    <input type="text" id="productName" />
+    <br />
+    <span>Description:</span> <br />
+    <textarea style="resize:none;" id="description"></textarea>
+    <br />
+    <span>Quantity:</span> <br />
+    <input type="number" id="quantity" />
+    <br />
+    <span>Price:</span> <br />
+    <input type="text" id="price" />
+    <br />
+    <span>Upload Picture:</span> <br />
+    <input id="fileToUpload" type="file" name="pic" accept="image/*">
+    <br />
+    <input id="btnSubmit" type="button" value="Add Product">
+</form>
+
+<style>
+    #newProductForm{
+        padding-top: 20px;
+    }
+</style>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/RetroStoreShop.js")
+}
+
